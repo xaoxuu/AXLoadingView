@@ -10,6 +10,13 @@
 #import <AXLoadingView/AXLoadingView.h>
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIView *preview;
+
+@property (strong, nonatomic) AXLoadingView *v1;
+
+@property (strong, nonatomic) AXLoadingView *v2;
+
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -19,24 +26,33 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    AXLoadingView *v = [[AXLoadingView alloc] initWithFrame:CGRectMake(120, 120, 100, 100) style:AXLoadingViewStyleCircular];
-    v.trackWidth = 10;
-    [self.view addSubview:v];
+    self.v1 = [[AXLoadingView alloc] initWithFrame:CGRectMake(100, 0, 150, 100) style:AXLoadingViewStyleLinear];
+    self.v1.trackWidth = 4;
+    [self.preview addSubview:self.v1];
     
 
+    self.v2 = [[AXLoadingView alloc] initWithFrame:CGRectMake(100, 120, 32, 32) style:AXLoadingViewStyleCircular];
+    self.v2.trackWidth = 2;
+    [self.preview addSubview:self.v2];
     
+    typeof(self) weakSelf = self;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        if (weakSelf.v1.progress <= 1 && weakSelf.v1.progress >= 0) {
+            weakSelf.v1.progress += 0.03;
+            weakSelf.v2.progress += 0.03;
+        }
+    }];
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        v.progress = 0;
-//    });
-//
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        v.progress = 0.5;
-//    });
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        v.progress = 1;
-//    });
-    
+}
+
+- (IBAction)btn:(UIButton *)sender {
+    if (self.v1.progress >= 0) {
+        self.v1.progress = -1;
+        self.v2.progress = -1;
+    } else {
+        self.v1.progress = 0;
+        self.v2.progress = 0;
+    }
 }
 
 

@@ -1,0 +1,16 @@
+PODS:
+  - AXLoadingView (1.0)
+
+DEPENDENCIES:
+  - AXLoadingView (from `..`)
+
+EXTERNAL SOURCES:
+  AXLoadingView:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  AXLoadingView: f0e7b05c0c8c7438de7a8606e699a77b7c614c6b
+
+PODFILE CHECKSUM: e080cfc373345c3351cea807f3a69d52f2b1325b
+
+COCOAPODS: 1.5.3
