@@ -43,6 +43,9 @@
         }
     }];
     
+    NSArray *arr = [UIFont familyNames];
+    NSLog(@"%@", arr);
+    
 }
 
 - (IBAction)btn:(UIButton *)sender {
